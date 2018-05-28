@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Tables</string>
+    <string name="start">Start</string>
+    <string name="title">Master your Tables!</string>
 </resources>
