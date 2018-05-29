@@ -2,4 +2,6 @@
     <string name="app_name">Tables</string>
     <string name="start">Start</string>
     <string name="title">Master your Tables!</string>
+    <string name="challenge">Uitdaging</string>
+    <string name="oefenen">Kies een tafel</string>
 </resources>
