@@ -3,5 +3,6 @@
     <string name="start">Start</string>
     <string name="title">Master your Tables!</string>
     <string name="challenge">Uitdaging</string>
-    <string name="oefenen">Kies een tafel</string>
+    <string name="oefenen">Oefenen</string>
+    <string name="eindeloos">Eindeloos</string>
 </resources>

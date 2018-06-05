@@ -19,10 +19,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button tafel = (Button) findViewById(R.id.buttonTafel);
         Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
+        Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
 
         buttons.add(tafel);
         buttons.add(uitdaging);
-
 
         ButtonClick.setButtonClickFunction(uitdaging, getResources(), new Function() {
             @Override
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ButtonClick.makeButtonPretty(tafel, getResources());
+        ButtonClick.makeButtonPretty(eindeloos, getResources());
 
     }
 }
