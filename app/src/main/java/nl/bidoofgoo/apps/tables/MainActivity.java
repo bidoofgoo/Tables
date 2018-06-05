@@ -28,13 +28,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void whatToDo() {
                 // ga naar een nieuwe pagina
-                Intent tafelScherm = new Intent(MainActivity.this, Uitdaging.class);
+                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
+                tafelScherm.putExtra("type", "uitdaging");
                 startActivity(tafelScherm);
             }
         });
 
-        ButtonClick.makeButtonPretty(tafel, getResources());
-        ButtonClick.makeButtonPretty(eindeloos, getResources());
+        ButtonClick.setButtonClickFunction(tafel, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                // ga naar een nieuwe pagina
+                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
+                tafelScherm.putExtra("type", "oefenen");
+                startActivity(tafelScherm);
+            }
+        });
+
+        ButtonClick.setButtonClickFunction(eindeloos, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                // ga naar een nieuwe pagina
+                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
+                tafelScherm.putExtra("type", "eindeloos");
+                startActivity(tafelScherm);
+            }
+        });
 
     }
 }
