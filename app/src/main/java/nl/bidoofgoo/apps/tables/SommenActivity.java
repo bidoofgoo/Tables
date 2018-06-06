@@ -3,7 +3,6 @@ package nl.bidoofgoo.apps.tables;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class SommenActivity extends AppCompatActivity {
@@ -13,7 +12,7 @@ public class SommenActivity extends AppCompatActivity {
 
     private TextView linkerGetalUI;
     private TextView rechterGetalUI;
-    private EditText input;
+    private TextView input;
     private Button nextButton;
 
     // Endless Mode
@@ -28,9 +27,11 @@ public class SommenActivity extends AppCompatActivity {
 
         linkerGetalUI = (TextView) findViewById(R.id.lNummer);
         rechterGetalUI = (TextView) findViewById(R.id.rNummer);
-        input = (EditText) findViewById(R.id.invoer);
+        input = (TextView) findViewById(R.id.input);
         nextButton = (Button) findViewById(R.id.nextButton);
         scoreUI = (TextView) findViewById(R.id.scoreSpot);
+
+
 
         String type = getIntent().getExtras().getString("type");
         if (type.equals("uitdaging"))
@@ -57,6 +58,12 @@ public class SommenActivity extends AppCompatActivity {
         // Kijk of het juist is beantwoord
         boolean antwoord = (mults[hoeveelsteVraag].getAntwoord() == antwoordIngevult);
 
+        // Code om score te berekenen
+        if (antwoord){
+            score += (mults[0].getCijferL() - 1) * (mults[0].getCijferR() - 1) + 1;
+            updateScore();
+        }
+
         if (!endless){
 
             // Vul het antwoord in in de multiplicatie
@@ -76,13 +83,9 @@ public class SommenActivity extends AppCompatActivity {
             if (!antwoord){
                 this.finish();
             }else{
-                // Code om score te berekenen
-                score += (mults[0].getCijferL() - 1) * (mults[0].getCijferR() - 1) + 1;
-
                 // Maak een willekeurige uidaging
                 mults[0].genereerUitdaging();
                 laadVraag();
-                updateScore();
             }
         }
     }
