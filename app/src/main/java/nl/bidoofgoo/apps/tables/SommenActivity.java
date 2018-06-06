@@ -21,6 +21,8 @@ public class SommenActivity extends AppCompatActivity {
     private TextView scoreUI;
     int score = 0;
 
+    private Button[] buttons;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class SommenActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.nextButton);
         scoreUI = (TextView) findViewById(R.id.scoreSpot);
 
-
+        setupButtons();
 
         String type = getIntent().getExtras().getString("type");
         if (type.equals("uitdaging"))
@@ -75,6 +77,7 @@ public class SommenActivity extends AppCompatActivity {
             // Tenzij alle vragen zijn beantwoord, ga dan terug
             if (hoeveelsteVraag > 9){
                 // Even zodat hij niet vast loopt zodra je alles hebt aangepast
+                this.finish();
                 Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
                 scoreScherm.putExtra("score", score);
                 startActivity(scoreScherm);
@@ -84,6 +87,7 @@ public class SommenActivity extends AppCompatActivity {
         }else{
             // Als het andwoord fout is
             if (!antwoord){
+                this.finish();
                 Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
                 scoreScherm.putExtra("score", score);
                 startActivity(scoreScherm);
@@ -143,6 +147,54 @@ public class SommenActivity extends AppCompatActivity {
 
     private void updateScore(){
         scoreUI.setText("Score: " + score);
+    }
+
+    public static int buttonno = 0;
+    private void setupButtons(){
+        buttons = new Button[11];
+
+        buttons[0] = findViewById(R.id.button0);
+        buttons[1] = findViewById(R.id.button1);
+        buttons[2] = findViewById(R.id.button2);
+        buttons[3] = findViewById(R.id.button3);
+        buttons[4] = findViewById(R.id.button4);
+        buttons[5] = findViewById(R.id.button5);
+        buttons[6] = findViewById(R.id.button6);
+        buttons[7] = findViewById(R.id.button7);
+        buttons[8] = findViewById(R.id.button8);
+        buttons[9] = findViewById(R.id.button9);
+        buttons[10] = findViewById(R.id.buttonDel);
+
+        for (buttonno = 0; buttonno < 10; buttonno++){
+            ButtonClick.setButtonClickFunction(buttons[buttonno], getResources(), new Function() {
+                int getalToTest = buttonno + 0;
+
+                @Override
+                public void whatToDo() {
+                    editInput(getalToTest);
+                }
+            });
+        }
+
+        ButtonClick.setButtonClickFunction(buttons[10], getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                editInput();
+            }
+        });
+    }
+
+    private void editInput(int getal){
+        if (input.getText().toString().length() < 5){
+            input.setText(input.getText().toString() + getal);
+        }
+    }
+
+    private void editInput(){
+        String str = input.getText().toString();
+        if (str.length() > 0){
+            input.setText(str.substring(0, str.length() - 1));;
+        }
     }
 
 }
