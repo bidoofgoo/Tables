@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Intent;
 
 public class SommenActivity extends AppCompatActivity {
 
@@ -74,14 +75,18 @@ public class SommenActivity extends AppCompatActivity {
             // Tenzij alle vragen zijn beantwoord, ga dan terug
             if (hoeveelsteVraag > 9){
                 // Even zodat hij niet vast loopt zodra je alles hebt aangepast
-                this.finish();
+                Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
+                scoreScherm.putExtra("score", score);
+                startActivity(scoreScherm);
             }else{
                 laadVraag();
             }
         }else{
             // Als het andwoord fout is
             if (!antwoord){
-                this.finish();
+                Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
+                scoreScherm.putExtra("score", score);
+                startActivity(scoreScherm);
             }else{
                 // Maak een willekeurige uidaging
                 mults[0].genereerUitdaging();
