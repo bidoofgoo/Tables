@@ -30,6 +30,7 @@ public class printResults extends AppCompatActivity{
                     public void whatToDo() {
                         Intent enterScoreScherm = new Intent(printResults.this, LeaderBoardActivity.class);
                         startActivity(enterScoreScherm);
+                        finish();
                     }
                 }
         );
