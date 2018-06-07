@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static  MediaPlayer mediaPlayer;
+    public static  MediaPlayer mediaPlayer = new MediaPlayer();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -24,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
         Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
         Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
 
-        mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dreamscape);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if (!mediaPlayer.isPlaying()){
+            mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dreamscape);
+            mediaPlayer.setLooping(true);
+            mediaPlayer.start();
+        }
 
         buttons.add(tafel);
         buttons.add(uitdaging);
