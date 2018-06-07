@@ -2,6 +2,7 @@ package nl.bidoofgoo.apps.tables;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static  MediaPlayer mediaPlayer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -20,6 +23,10 @@ public class MainActivity extends AppCompatActivity {
         Button tafel = (Button) findViewById(R.id.buttonTafel);
         Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
         Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
+
+        mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dreamscape);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
 
         buttons.add(tafel);
         buttons.add(uitdaging);
