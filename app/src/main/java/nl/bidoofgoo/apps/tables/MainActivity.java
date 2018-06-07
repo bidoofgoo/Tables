@@ -7,32 +7,33 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
+    // Mediaplayer that handles music, static so it applies fully throughout the app
     public static  MediaPlayer mediaPlayer = new MediaPlayer();
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Create screen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final ArrayList<Button> buttons = new ArrayList<Button>();
 
+        DatabaseConnectie.setupDatabase();
+
+        // Instanciate all buttons
         Button tafel = (Button) findViewById(R.id.buttonTafel);
         Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
         Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
 
+        // Play music if not playing already
         if (!mediaPlayer.isPlaying()){
             mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dreamscape);
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
 
-        buttons.add(tafel);
-        buttons.add(uitdaging);
-
+        // Button events
         ButtonClick.setButtonClickFunction(uitdaging, getResources(), new Function() {
             @Override
             public void whatToDo() {

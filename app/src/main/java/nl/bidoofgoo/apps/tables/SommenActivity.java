@@ -125,7 +125,7 @@ public class SommenActivity extends AppCompatActivity {
         mults = new Multiplicatie[10];
 
         for (int i = 0; i < 10; i++) {
-            mults[i] = new Multiplicatie(getal, i+1);
+            mults[i] = new Multiplicatie(i + 1, getal);
         }
 
         hoeveelsteVraag = 0;
@@ -146,7 +146,7 @@ public class SommenActivity extends AppCompatActivity {
     }
 
     private void updateScore(){
-        scoreUI.setText("Score: " + score);
+        scoreUI.setText("ScoreModel: " + score);
     }
 
     public static int buttonno = 0;

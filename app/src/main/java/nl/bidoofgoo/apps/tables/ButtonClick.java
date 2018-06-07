@@ -9,10 +9,15 @@ import android.widget.TextView;
 
 public class ButtonClick extends AppCompatActivity{
 
+    // Bestand dat er toe dient om een gemakkelijkere manier te maken om buttons te stylen en
+    // functies hier aantoe te voegen.
+
+    // Add a function to a button.
     public static void setButtonClickFunction(Button button, Resources resources, Function function){
         new ButtonClick().doTheThings(button,resources, function);
     }
 
+    // Add pretties to the button
     public static void makeButtonPretty(Button button, Resources resources){
         new ButtonClick().doTheThings(button, resources,new Function() {
             @Override
@@ -22,6 +27,7 @@ public class ButtonClick extends AppCompatActivity{
         });
     }
 
+    // Do the hard work, do the function passed as parameter
     private static void doTheThings(Button button, final Resources resources, final Function function){
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
