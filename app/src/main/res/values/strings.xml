@@ -5,7 +5,8 @@
     <string name="challenge">Uitdaging</string>
     <string name="oefenen">Oefenen</string>
     <string name="eindeloos">Eindeloos</string>
-    <string name="resultTitle">Score?!</string>
+    <string name="resultTitle">Score!</string>
     <string name="naamInvoeren">Voer hier je naam in</string>
     <string name="submitNaam">Invoeren naam</string>
+    <string name="top10">Top 10!</string>
 </resources>
