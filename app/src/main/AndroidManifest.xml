@@ -20,6 +20,7 @@
         <activity android:name=".SommenActivity"></activity>
         <activity android:name=".printResults"></activity>
         <activity android:name=".LeaderBoardActivity"></activity>
+        <activity android:name=".SelectTableActivity"></activity>
 
     </application>
 
