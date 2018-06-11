@@ -1,8 +1,11 @@
 package nl.bidoofgoo.apps.tables;
 
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.content.Intent;
 
@@ -15,11 +18,18 @@ public class SommenActivity extends AppCompatActivity {
     private TextView rechterGetalUI;
     private TextView input;
     private Button nextButton;
+    private ProgressBar timerBar;
 
     // Endless Mode
     private boolean endless = false;
     private TextView scoreUI;
     int score = 0;
+    int currentSom = 0;
+    int currentMax = 5;
+    int currentMin = 0;
+    int toNext = 7;
+    CountDownTimer timer;
+    final int timerSeconden = 10;
 
     private Button[] buttons;
 
@@ -33,6 +43,9 @@ public class SommenActivity extends AppCompatActivity {
         input = (TextView) findViewById(R.id.input);
         nextButton = (Button) findViewById(R.id.nextButton);
         scoreUI = (TextView) findViewById(R.id.scoreSpot);
+        timerBar = (ProgressBar) findViewById(R.id.timer);
+
+        timerBar.setProgress(0);
 
         setupButtons();
 
@@ -87,13 +100,18 @@ public class SommenActivity extends AppCompatActivity {
         }else{
             // Als het andwoord fout is
             if (!antwoord){
-                this.finish();
-                Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
-                scoreScherm.putExtra("score", score);
-                startActivity(scoreScherm);
+                endEndless();
             }else{
+                resetTimer();
                 // Maak een willekeurige uidaging
-                mults[0].genereerUitdaging();
+                currentSom++;
+                // Als dit de 7e vraag is, verhoog de moeilijkheid
+                if (currentSom % toNext == 0){
+                    currentMax += 2;
+                    currentMin += 1;
+                }
+
+                mults[0].genereerUitdaging(0, currentMax);
                 laadVraag();
             }
         }
@@ -114,7 +132,7 @@ public class SommenActivity extends AppCompatActivity {
 
         for (int i = 0; i < 10; i++) {
             mults[i] = new Multiplicatie();
-            mults[i].genereerUitdaging();
+            mults[i].genereerUitdaging(0, 10);
         }
 
         hoeveelsteVraag = 0;
@@ -138,18 +156,48 @@ public class SommenActivity extends AppCompatActivity {
         mults = new Multiplicatie[1];
 
         mults[0] = new Multiplicatie();
-        mults[0].genereerUitdaging();
+        mults[0].genereerUitdaging(currentMin, currentMax);
         hoeveelsteVraag = 0;
         score = 0;
+        resetTimer();
 
         updateScore();
+    }
+
+    private void endEndless(){
+        this.finish();
+        Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
+        scoreScherm.putExtra("score", score);
+        startActivity(scoreScherm);
+    }
+
+    private void resetTimer(){
+        timerBar.setProgress(100);
+
+        if (timer != null)
+            timer.cancel();
+
+        timer = new CountDownTimer(timerSeconden * 1000, 1000) {
+            @Override
+            public void onTick(long passed) {
+                Log.d("tmr", "onTick: " + passed);
+                timerBar.setProgress((int)(passed / 100));
+            }
+
+            @Override
+            public void onFinish() {
+                endEndless();
+            }
+        };
+
+        timer.start();
     }
 
     private void updateScore(){
         scoreUI.setText("ScoreModel: " + score);
     }
 
-    public static int buttonno = 0;
+    public int buttonno = 0;
     private void setupButtons(){
         buttons = new Button[11];
 

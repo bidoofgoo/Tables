@@ -17,9 +17,11 @@ public class Multiplicatie {
     }
 
     // Genereer een willkeurige tafel berekening
-    public void genereerUitdaging(){
-        int getal1 = (int)(Math.random() * 9) + 1;
-        int getal2 = (int)(Math.random() * 9) + 1;
+    public void genereerUitdaging(int min, int max){
+        int range = max - min;
+        if (min < 1) min = 1;
+        int getal1 = (int)(Math.random() * (range - 1)) + min;
+        int getal2 = (int)(Math.random() * (range - 1)) + min;
 
         cijferL = getal1;
         cijferR = getal2;

@@ -7,6 +7,10 @@ public class ScoreModel {
     private int score = 0;
     private String naam = "";
 
+    public ScoreModel(){
+
+    }
+
     public ScoreModel(int score, String naam){
         this.score = score;
         this.naam = naam;
@@ -27,5 +31,10 @@ public class ScoreModel {
 
     public String getNaam() {
         return naam;
+    }
+
+    @Override
+    public String toString() {
+        return naam + " got score " + score;
     }
 }
