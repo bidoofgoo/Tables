@@ -34,13 +34,15 @@ public class SommenActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.nextButton);
         scoreUI = (TextView) findViewById(R.id.scoreSpot);
 
+        int getal = getIntent().getExtras().getInt("tafelRechts");
+
         setupButtons();
 
         String type = getIntent().getExtras().getString("type");
         if (type.equals("uitdaging"))
             genereerUitdaging();
         else if(type.equals("oefenen"))
-            genereerTafels(7);
+            genereerTafels(getal);
         else
             setEndless();
 
