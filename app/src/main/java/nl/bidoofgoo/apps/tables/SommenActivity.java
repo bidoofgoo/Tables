@@ -47,13 +47,15 @@ public class SommenActivity extends AppCompatActivity {
 
         timerBar.setProgress(0);
 
+        int getal = getIntent().getExtras().getInt("tafelRechts");
+
         setupButtons();
 
         String type = getIntent().getExtras().getString("type");
         if (type.equals("uitdaging"))
             genereerUitdaging();
         else if(type.equals("oefenen"))
-            genereerTafels(7);
+            genereerTafels(getal);
         else
             setEndless();
 

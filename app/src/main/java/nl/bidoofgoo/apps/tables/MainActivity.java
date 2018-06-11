@@ -48,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void whatToDo() {
                 // ga naar een nieuwe pagina
-                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
-                tafelScherm.putExtra("type", "oefenen");
-                startActivity(tafelScherm);
+                Intent kiesTafel = new Intent(MainActivity.this, kiesTafelActivity.class);
+                startActivity(kiesTafel);
             }
         });
 
