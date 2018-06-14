@@ -23,6 +23,7 @@ public class SommenActivity extends AppCompatActivity {
     private TextView input;
     private Button nextButton;
     private ProgressBar timerBar;
+    private String type;
 
     //oefenen
     private int antwoordenGoed = 0;
@@ -59,7 +60,7 @@ public class SommenActivity extends AppCompatActivity {
 
         setupButtons();
 
-        String type = getIntent().getExtras().getString("type");
+        type = getIntent().getExtras().getString("type");
         if (type.equals("uitdaging"))
             genereerUitdaging();
         else if(type.equals("oefenen"))
@@ -105,8 +106,9 @@ public class SommenActivity extends AppCompatActivity {
             if (hoeveelsteVraag > 9){
                 // Even zodat hij niet vast loopt zodra je alles hebt aangepast
                 this.finish();
-                Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
-                scoreScherm.putExtra("score", score);
+                Intent scoreScherm = new Intent(SommenActivity.this, oefenresultsActivity.class);
+                scoreScherm.putExtra("goed", antwoordenGoed);
+                scoreScherm.putExtra("fout", antwoordenFout);
                 startActivity(scoreScherm);
             }else{
                 laadVraag();

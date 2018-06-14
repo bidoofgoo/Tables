@@ -48,6 +48,7 @@ public class kiesTafelActivity extends AppCompatActivity{
                     tafelScherm.putExtra("tafelRechts", getalToTest + 1);
                     tafelScherm.putExtra("type", "oefenen");
                     startActivity(tafelScherm);;
+                    finish();
                 }
             });
         }
