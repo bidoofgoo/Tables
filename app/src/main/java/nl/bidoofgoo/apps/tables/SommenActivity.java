@@ -20,6 +20,10 @@ public class SommenActivity extends AppCompatActivity {
     private Button nextButton;
     private ProgressBar timerBar;
 
+    //oefenen
+    private int antwoordenGoed = 0;
+    private int antwoordenFout = 10;
+
     // Endless Mode
     private boolean endless = false;
     private TextView scoreUI;
@@ -79,6 +83,10 @@ public class SommenActivity extends AppCompatActivity {
         // Code om score te berekenen
         if (antwoord){
             score += (mults[0].getCijferL() - 1) * (mults[0].getCijferR() - 1) + 1;
+
+            antwoordenGoed += 1;
+            antwoordenFout = 10 - antwoordenGoed;
+
             updateScore();
         }
 
