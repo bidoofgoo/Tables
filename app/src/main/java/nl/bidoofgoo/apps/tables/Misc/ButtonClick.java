@@ -1,4 +1,4 @@
-package nl.bidoofgoo.apps.tables;
+package nl.bidoofgoo.apps.tables.Misc;
 
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import nl.bidoofgoo.apps.tables.R;
 
 public class ButtonClick extends AppCompatActivity{
 

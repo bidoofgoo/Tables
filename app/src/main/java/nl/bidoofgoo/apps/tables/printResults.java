@@ -7,6 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
+import nl.bidoofgoo.apps.tables.Misc.DatabaseConnectie;
+import nl.bidoofgoo.apps.tables.Misc.Function;
+import nl.bidoofgoo.apps.tables.Models.ScoreModel;
+
 public class printResults extends AppCompatActivity{
 
     private Button enterScore;
@@ -31,10 +36,12 @@ public class printResults extends AppCompatActivity{
         ButtonClick.setButtonClickFunction(enterScore, getResources(), new Function() {
                     @Override
                     public void whatToDo() {
-                        Intent enterScoreScherm = new Intent(printResults.this, LeaderBoardActivity.class);
-                        startActivity(enterScoreScherm);
-                        DatabaseConnectie.pushScore(new ScoreModel(score, name.getText().toString()));
-                        finish();
+                        if (!name.getText().toString().trim().equals("")){
+                            DatabaseConnectie.pushScore(new ScoreModel(score, name.getText().toString().trim()));
+                            Intent enterScoreScherm = new Intent(printResults.this, LeaderBoardActivity.class);
+                            startActivity(enterScoreScherm);
+                            finish();
+                        }
                     }
                 }
         );

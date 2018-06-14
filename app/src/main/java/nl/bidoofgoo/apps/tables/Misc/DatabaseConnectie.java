@@ -1,4 +1,4 @@
-package nl.bidoofgoo.apps.tables;
+package nl.bidoofgoo.apps.tables.Misc;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -7,16 +7,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
+import nl.bidoofgoo.apps.tables.Models.ScoreModel;
 
 public class DatabaseConnectie {
 
     private static FirebaseDatabase firebaseDb;
     private static DatabaseReference dbReference;
     private static DatabaseReference dbPost;
+    private static Query dbOrdered;
     private static ArrayList<ScoreModel> scores;
+
 
     public static void setupDatabase(){
         firebaseDb = FirebaseDatabase.getInstance();
@@ -25,8 +31,10 @@ public class DatabaseConnectie {
         dbReference.child("test").setValue("wat is dit een test");
 
         dbPost = dbReference.child("Scores");
+        dbOrdered = dbPost.orderByChild("score").limitToLast(10);
 
-        dbPost.addValueEventListener(new ValueEventListener() {
+
+        dbOrdered.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 scores = new ArrayList<ScoreModel>();
@@ -35,6 +43,8 @@ public class DatabaseConnectie {
                     Log.d("database", "onDataChange: " + post);
                     scores.add(post.getValue(ScoreModel.class));
                 }
+
+                Collections.reverse(scores);
 
                 Log.d("database", "got " + scores);
             }
@@ -46,9 +56,8 @@ public class DatabaseConnectie {
         });
     }
 
-    public static void getScores(){
-        // Read from the database
-
+    public static ArrayList<ScoreModel> getScores() {
+        return scores;
     }
 
     public static void pushScore(ScoreModel score){

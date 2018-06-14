@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.content.Intent;
 
+import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
+import nl.bidoofgoo.apps.tables.Misc.Function;
+
 public class kiesTafelActivity extends AppCompatActivity{
 
     private Button[] buttons;

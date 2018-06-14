@@ -9,4 +9,6 @@
     <string name="naamInvoeren">Voer hier je naam in</string>
     <string name="submitNaam">Invoeren naam</string>
     <string name="top10">Top 10!</string>
+    <string name="by">Door:</string>
+    <string name="terug">Terug</string>
 </resources>

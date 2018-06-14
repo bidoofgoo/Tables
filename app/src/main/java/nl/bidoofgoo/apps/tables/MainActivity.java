@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
+import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
+import nl.bidoofgoo.apps.tables.Misc.DatabaseConnectie;
+import nl.bidoofgoo.apps.tables.Misc.Function;
+
 public class MainActivity extends AppCompatActivity {
 
     // Mediaplayer that handles music, static so it applies fully throughout the app

@@ -1,4 +1,4 @@
-package nl.bidoofgoo.apps.tables;
+package nl.bidoofgoo.apps.tables.Models;
 
 public class ScoreModel {
 

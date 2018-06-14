@@ -9,6 +9,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.content.Intent;
 
+import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
+import nl.bidoofgoo.apps.tables.Misc.Function;
+import nl.bidoofgoo.apps.tables.Models.Multiplicatie;
+
 public class SommenActivity extends AppCompatActivity {
 
     private Multiplicatie[] mults;
@@ -168,6 +172,7 @@ public class SommenActivity extends AppCompatActivity {
 
     private void endEndless(){
         this.finish();
+        timer.cancel();
         Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
         scoreScherm.putExtra("score", score);
         startActivity(scoreScherm);

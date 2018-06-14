@@ -1,4 +1,4 @@
-package nl.bidoofgoo.apps.tables;
+package nl.bidoofgoo.apps.tables.Misc;
 
 public interface Function {
 
