@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         Button tafel = (Button) findViewById(R.id.buttonTafel);
         Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
         Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
+        Button highScores = (Button) findViewById(R.id.highScoresButton);
 
         // Play music if not playing already
         if (!mediaPlayer.isPlaying()){
@@ -36,6 +37,15 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
         }
+
+        ButtonClick.setButtonClickFunction(highScores, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                // ga naar een nieuwe pagina
+                Intent highScores = new Intent(MainActivity.this, LeaderBoardActivity.class);
+                startActivity(highScores);
+            }
+        });
 
         // Button events
         ButtonClick.setButtonClickFunction(uitdaging, getResources(), new Function() {

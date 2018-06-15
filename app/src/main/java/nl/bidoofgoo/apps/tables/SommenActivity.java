@@ -17,6 +17,7 @@ public class SommenActivity extends AppCompatActivity {
 
     private Multiplicatie[] mults;
     private int hoeveelsteVraag;
+    private int resetKey;
 
     private TextView linkerGetalUI;
     private TextView rechterGetalUI;
