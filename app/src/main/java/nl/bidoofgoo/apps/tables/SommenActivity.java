@@ -1,24 +1,29 @@
 package nl.bidoofgoo.apps.tables;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.content.Intent;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
+import nl.bidoofgoo.apps.tables.Misc.Variables;
 import nl.bidoofgoo.apps.tables.Models.Multiplicatie;
 
 public class SommenActivity extends AppCompatActivity {
 
+    // De sommen
     private Multiplicatie[] mults;
     private int hoeveelsteVraag;
-    private int resetKey;
 
+    // Algemene user interface elementen
     private TextView linkerGetalUI;
     private TextView rechterGetalUI;
     private TextView input;
@@ -26,13 +31,15 @@ public class SommenActivity extends AppCompatActivity {
     private ProgressBar timerBar;
     private String type;
 
-    //oefenen
+    // Oefenen variabelen
     private int antwoordenGoed = 0;
     private int antwoordenFout = 10;
 
     // Endless Mode
     private boolean endless = false;
     private TextView scoreUI;
+    private ConstraintLayout keyLayout;
+    private TextView keys;
     int score = 0;
     int currentSom = 0;
     int currentMax = 5;
@@ -40,9 +47,16 @@ public class SommenActivity extends AppCompatActivity {
     int toNext = 7;
     CountDownTimer timer;
     final int timerSeconden = 10;
+    final int keyTreshold = 500;
+    int gottenKeys = 0;
+    Button keyButton;
+    ImageView keyButtonImage;
 
+    // Alle buttons
     private Button[] buttons;
 
+    // De create functie, initialiseer alle variabelen, stel gamemodes in en
+    // zet de event listeners aan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,31 +68,39 @@ public class SommenActivity extends AppCompatActivity {
         nextButton = (Button) findViewById(R.id.nextButton);
         scoreUI = (TextView) findViewById(R.id.scoreSpot);
         timerBar = (ProgressBar) findViewById(R.id.timer);
+        keyLayout = (ConstraintLayout) findViewById(R.id.keyconstraint);
+        keys = (TextView) findViewById(R.id.keys);
+        keyButton = (Button) findViewById(R.id.keyButton);
+        keyButtonImage = (ImageView) findViewById(R.id.keyButtonImage);
 
         timerBar.setProgress(0);
 
-        int getal = getIntent().getExtras().getInt("tafelRechts");
-
+        // Stel de eventlisteners van de knoppen in
         setupButtons();
 
+        // Stel de gamemode in
         type = getIntent().getExtras().getString("type");
-        if (type.equals("uitdaging"))
+        if (type.equals("uitdaging")) {
             genereerUitdaging();
-        else if(type.equals("oefenen"))
+            hideKeys();
+        } else if (type.equals("oefenen")){
+            int getal = getIntent().getExtras().getInt("tafelRechts");
             genereerTafels(getal);
+            hideKeys();
+        }
         else
             setEndless();
 
+        // zet de huidige vraag op de pagina
         laadVraag();
+    }
 
-        ButtonClick.setButtonClickFunction(nextButton, getResources(), new Function() {
-            @Override
-            public void whatToDo() {
-                String ingevult = input.getText().toString();
-                if (!ingevult.equals(""))
-                    antwoord(Integer.parseInt(ingevult));
-            }
-        });
+    // Functie die ervoor zorgt dat de timer stopt zodra je de activity verlaat
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (timer != null)
+            timer.cancel();
     }
 
     // De functie die wordt doorgevoerd zodra er iets is ingevult en de gebruiker drukt op volgende
@@ -128,7 +150,16 @@ public class SommenActivity extends AppCompatActivity {
                     currentMin += 1;
                 }
 
-                mults[0].genereerUitdaging(0, currentMax);
+                // Als je boven 500 keer het aantal keys dat je dit potje hebt gekregen
+                // Dus voor iedere 500 punten.
+                if (score > ((gottenKeys + 1) * keyTreshold)){
+                    gottenKeys++;
+
+                    Variables.upKeys(this);
+                    updateKeys();
+                }
+
+                mults[0].genereerUitdaging(currentMin, currentMax);
                 laadVraag();
             }
         }
@@ -140,8 +171,6 @@ public class SommenActivity extends AppCompatActivity {
         rechterGetalUI.setText(Integer.toString(mults[hoeveelsteVraag].getCijferR()));
         input.setText("");
     }
-
-
 
     // Genereer 10 willekeurige tafels.
     public void genereerUitdaging(){
@@ -168,6 +197,7 @@ public class SommenActivity extends AppCompatActivity {
 
     // Zorgt ervoor dat er een endless stream komt aan vragen
     public void setEndless(){
+        updateKeys();
         endless = true;
 
         mults = new Multiplicatie[1];
@@ -181,6 +211,19 @@ public class SommenActivity extends AppCompatActivity {
         updateScore();
     }
 
+    // Verstop de timer key functies
+    private void hideKeys(){
+        keyLayout.setVisibility(View.GONE);
+        keyButton.setVisibility(View.GONE);
+        keyButtonImage.setVisibility(View.GONE);
+    }
+
+    // Update de keys in de ui naar het daadwerkelijke getal
+    private void updateKeys(){
+        keys.setText(Variables.getResetKey() + "");
+    }
+
+    // Eindig endless mode
     private void endEndless(){
         this.finish();
         timer.cancel();
@@ -189,6 +232,7 @@ public class SommenActivity extends AppCompatActivity {
         startActivity(scoreScherm);
     }
 
+    // Reset de timer, als die nog niet bestaat
     private void resetTimer(){
         timerBar.setProgress(100);
 
@@ -204,15 +248,20 @@ public class SommenActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                endEndless();
+                String ingevult = input.getText().toString();
+                if (!ingevult.equals(""))
+                    antwoord(Integer.parseInt(ingevult));
+                else
+                    endEndless();
             }
         };
 
         timer.start();
     }
 
+    // Zet de score in de ui
     private void updateScore(){
-        scoreUI.setText("ScoreModel: " + score);
+        scoreUI.setText("Score: " + score);
     }
 
     public int buttonno = 0;
@@ -231,6 +280,7 @@ public class SommenActivity extends AppCompatActivity {
         buttons[9] = findViewById(R.id.button9);
         buttons[10] = findViewById(R.id.buttonDel);
 
+        // 1 - 9 keys
         for (buttonno = 0; buttonno < 10; buttonno++){
             ButtonClick.setButtonClickFunction(buttons[buttonno], getResources(), new Function() {
                 int getalToTest = buttonno + 0;
@@ -242,10 +292,33 @@ public class SommenActivity extends AppCompatActivity {
             });
         }
 
+        // Delete key
         ButtonClick.setButtonClickFunction(buttons[10], getResources(), new Function() {
             @Override
             public void whatToDo() {
                 editInput();
+            }
+        });
+
+        // Antwoord key
+        ButtonClick.setButtonClickFunction(nextButton, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                String ingevult = input.getText().toString();
+                if (!ingevult.equals(""))
+                    antwoord(Integer.parseInt(ingevult));
+            }
+        });
+
+        // Use key button
+        ButtonClick.setButtonClickFunctionTransp(keyButton, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                if (Variables.getResetKey() > 0){
+                    Variables.downKeys(SommenActivity.this);
+                    updateKeys();
+                    resetTimer();
+                }
             }
         });
     }

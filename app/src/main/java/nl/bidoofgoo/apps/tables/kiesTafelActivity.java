@@ -19,6 +19,15 @@ public class kiesTafelActivity extends AppCompatActivity{
 
         setupButtons();
 
+        Button home = (Button)findViewById(R.id.home);
+
+        ButtonClick.setButtonClickFunction(home, getResources(), new Function() {
+            @Override
+            public void whatToDo() {
+                finish();
+            }
+        });
+
     }
 
     private static int buttonno = 0;

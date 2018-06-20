@@ -10,6 +10,7 @@ import android.widget.Button;
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.DatabaseConnectie;
 import nl.bidoofgoo.apps.tables.Misc.Function;
+import nl.bidoofgoo.apps.tables.Misc.Variables;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,11 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseConnectie.setupDatabase();
+        Variables.loadResetKeyFromPreferences(this);
 
         // Instanciate all buttons
-        Button tafel = (Button) findViewById(R.id.buttonTafel);
-        Button uitdaging = (Button) findViewById(R.id.buttonUitdaging);
-        Button eindeloos = (Button) findViewById(R.id.buttonEindeloos);
+        Button play = (Button) findViewById(R.id.play);
         Button highScores = (Button) findViewById(R.id.highScoresButton);
 
         // Play music if not playing already
@@ -48,32 +48,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Button events
-        ButtonClick.setButtonClickFunction(uitdaging, getResources(), new Function() {
+        ButtonClick.setButtonClickFunction(play, getResources(), new Function() {
             @Override
             public void whatToDo() {
                 // ga naar een nieuwe pagina
-                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
-                tafelScherm.putExtra("type", "uitdaging");
-                startActivity(tafelScherm);
-            }
-        });
-
-        ButtonClick.setButtonClickFunction(tafel, getResources(), new Function() {
-            @Override
-            public void whatToDo() {
-                // ga naar een nieuwe pagina
-                Intent kiesTafel = new Intent(MainActivity.this, kiesTafelActivity.class);
-                startActivity(kiesTafel);
-            }
-        });
-
-        ButtonClick.setButtonClickFunction(eindeloos, getResources(), new Function() {
-            @Override
-            public void whatToDo() {
-                // ga naar een nieuwe pagina
-                Intent tafelScherm = new Intent(MainActivity.this, SommenActivity.class);
-                tafelScherm.putExtra("type", "eindeloos");
-                startActivity(tafelScherm);
+                Intent playScherm = new Intent(MainActivity.this, SelectMode.class);
+                startActivity(playScherm);
             }
         });
 

@@ -21,10 +21,11 @@ public class DatabaseConnectie {
     private static DatabaseReference dbReference;
     private static DatabaseReference dbPost;
     private static Query dbOrdered;
-    private static ArrayList<ScoreModel> scores;
+    private static ArrayList<ScoreModel> scores = new ArrayList<ScoreModel>();
 
 
     public static void setupDatabase(){
+        scores.add(new ScoreModel(0, "Offline"));
         firebaseDb = FirebaseDatabase.getInstance();
         dbReference = firebaseDb.getReference();
 

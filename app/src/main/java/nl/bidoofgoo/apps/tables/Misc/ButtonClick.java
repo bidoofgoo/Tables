@@ -16,7 +16,10 @@ public class ButtonClick extends AppCompatActivity{
 
     // Add a function to a button.
     public static void setButtonClickFunction(Button button, Resources resources, Function function){
-        new ButtonClick().doTheThings(button,resources, function);
+        new ButtonClick().doTheThings(button,resources, function, R.drawable.roundedbutton ,R.drawable.roundedbuttondown);
+    }
+    public static void setButtonClickFunctionTransp(Button button, Resources resources, Function function){
+        new ButtonClick().doTheThings(button,resources, function, R.drawable.roundedbuttontransp ,R.drawable.roundedbuttondown);
     }
 
     // Add pretties to the button
@@ -26,11 +29,11 @@ public class ButtonClick extends AppCompatActivity{
             public void whatToDo() {
 
             }
-        });
+        }, R.drawable.roundedbutton, R.drawable.roundedbuttondown);
     }
 
     // Do the hard work, do the function passed as parameter
-    private static void doTheThings(Button button, final Resources resources, final Function function){
+    private static void doTheThings(Button button, final Resources resources, final Function function, final int drawableUp, final int drawableDown){
         button.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -38,12 +41,12 @@ public class ButtonClick extends AppCompatActivity{
                     case MotionEvent.ACTION_DOWN:
                         // PRESSED
                         ((TextView) view).setTextColor(resources.getColor(R.color.colorPrimaryDark));
-                        view.setBackgroundResource(R.drawable.roundedbuttondown);
+                        view.setBackgroundResource(drawableDown);
                         return true; // if you want to handle the touch event
                     case MotionEvent.ACTION_UP:
                         // RELEASED
                         ((TextView) view).setTextColor(resources.getColor(R.color.colorPrimary));
-                        view.setBackgroundResource(R.drawable.roundedbutton);
+                        view.setBackgroundResource(drawableUp);
                         function.whatToDo();
                         return true;
                 }
