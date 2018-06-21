@@ -50,15 +50,8 @@ public class MainActivity extends AppCompatActivityMusic {
                 startActivity(playScherm);
             }
         });
-    }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();        //  <<-------ENSURE onStop()
-        mediaPlayer.pause();
-    }
-
+<<<<<<< HEAD
 <<<<<<< HEAD
     @Override
     protected void onResume() {
@@ -75,5 +68,7 @@ public class MainActivity extends AppCompatActivityMusic {
         });
 
 >>>>>>> 45bf4cb2c31ded0896ca202bb03cc3634bbbd1b3
+=======
+>>>>>>> parent of 448bce1... Test
     }
 }
