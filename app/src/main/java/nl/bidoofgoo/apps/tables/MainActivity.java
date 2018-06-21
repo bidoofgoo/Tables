@@ -56,6 +56,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(playScherm);
             }
         });
+    }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();        //  <<-------ENSURE onStop()
+        mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer.start();
     }
 }
