@@ -2,14 +2,13 @@ package nl.bidoofgoo.apps.tables;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
 import nl.bidoofgoo.apps.tables.Misc.Variables.PlaysEndless;
 
-public class SelectMode extends AppCompatActivity {
+public class SelectMode extends AppCompatActivityMusic {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

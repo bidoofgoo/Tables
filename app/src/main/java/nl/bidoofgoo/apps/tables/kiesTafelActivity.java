@@ -1,14 +1,13 @@
 package nl.bidoofgoo.apps.tables;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.content.Intent;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
 
-public class kiesTafelActivity extends AppCompatActivity{
+public class kiesTafelActivity extends AppCompatActivityMusic{
 
     private Button[] buttons;
 

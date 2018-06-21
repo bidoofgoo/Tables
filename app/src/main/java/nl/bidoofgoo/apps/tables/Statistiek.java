@@ -1,7 +1,6 @@
 package nl.bidoofgoo.apps.tables;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,7 +10,7 @@ import nl.bidoofgoo.apps.tables.Misc.Variables.HighscoreEndless;
 import nl.bidoofgoo.apps.tables.Misc.Variables.PlaysEndless;
 import nl.bidoofgoo.apps.tables.Misc.Variables.ResetKeys;
 
-public class Statistiek extends AppCompatActivity {
+public class Statistiek extends AppCompatActivityMusic {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

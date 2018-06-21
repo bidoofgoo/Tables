@@ -2,9 +2,7 @@ package nl.bidoofgoo.apps.tables;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
@@ -14,10 +12,8 @@ import nl.bidoofgoo.apps.tables.Misc.Variables.HighscoreEndless;
 import nl.bidoofgoo.apps.tables.Misc.Variables.PlaysEndless;
 import nl.bidoofgoo.apps.tables.Misc.Variables.ResetKeys;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivityMusic {
 
-    // Mediaplayer that handles music, static so it applies fully throughout the app
-    public static MediaPlayer mediaPlayer;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -64,25 +60,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        // Play music if not playing already
-        if (mediaPlayer == null){
-            mediaPlayer = MediaPlayer.create(getBaseContext(), R.raw.dreamscape);
-            mediaPlayer.setLooping(true);
-        }
-
-        if (!mediaPlayer.isPlaying()){
-            mediaPlayer.start();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mediaPlayer.pause();
     }
 }

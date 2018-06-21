@@ -2,7 +2,6 @@ package nl.bidoofgoo.apps.tables;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
 
-public class oefenresultsActivity extends AppCompatActivity {
+public class oefenresultsActivity extends AppCompatActivityMusic {
 
     private PieChart mChart;
     private int goed;

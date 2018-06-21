@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,7 +17,7 @@ import nl.bidoofgoo.apps.tables.Misc.Variables.HighscoreEndless;
 import nl.bidoofgoo.apps.tables.Misc.Variables.ResetKeys;
 import nl.bidoofgoo.apps.tables.Models.Multiplicatie;
 
-public class SommenActivity extends AppCompatActivity {
+public class SommenActivity extends AppCompatActivityMusic {
 
     // De sommen
     private Multiplicatie[] mults;

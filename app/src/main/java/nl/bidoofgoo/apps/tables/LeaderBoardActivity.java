@@ -1,7 +1,6 @@
 package nl.bidoofgoo.apps.tables;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,7 +12,7 @@ import nl.bidoofgoo.apps.tables.Misc.DatabaseConnectie;
 import nl.bidoofgoo.apps.tables.Misc.Function;
 import nl.bidoofgoo.apps.tables.Models.ScoreModel;
 
-public class LeaderBoardActivity extends AppCompatActivity {
+public class LeaderBoardActivity extends AppCompatActivityMusic {
 
     private ScoreListAdapter scoreAdapter;
     private ListView scoreLijst;

@@ -2,7 +2,6 @@ package nl.bidoofgoo.apps.tables;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import nl.bidoofgoo.apps.tables.Misc.DatabaseConnectie;
 import nl.bidoofgoo.apps.tables.Misc.Function;
 import nl.bidoofgoo.apps.tables.Models.ScoreModel;
 
-public class printResults extends AppCompatActivity{
+public class printResults extends AppCompatActivityMusic{
 
     private Button enterScore;
     private TextView scoreUi;
