@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
+import nl.bidoofgoo.apps.tables.Misc.Variables.PlaysEndless;
 
 public class SelectMode extends AppCompatActivity {
 
@@ -52,6 +53,7 @@ public class SelectMode extends AppCompatActivity {
         ButtonClick.setButtonClickFunction(eindeloos, getResources(), new Function() {
             @Override
             public void whatToDo() {
+                PlaysEndless.upValue(SelectMode.this);
                 // ga naar een nieuwe pagina
                 Intent tafelScherm = new Intent(SelectMode.this, SommenActivity.class);
                 tafelScherm.putExtra("type", "eindeloos");
