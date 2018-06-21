@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +13,11 @@ import android.widget.TextView;
 
 import nl.bidoofgoo.apps.tables.Misc.ButtonClick;
 import nl.bidoofgoo.apps.tables.Misc.Function;
-import nl.bidoofgoo.apps.tables.Misc.Variables;
+import nl.bidoofgoo.apps.tables.Misc.Variables.HighscoreEndless;
+import nl.bidoofgoo.apps.tables.Misc.Variables.ResetKeys;
 import nl.bidoofgoo.apps.tables.Models.Multiplicatie;
 
-public class SommenActivity extends AppCompatActivity {
+public class SommenActivity extends AppCompatActivityMusic {
 
     // De sommen
     private Multiplicatie[] mults;
@@ -36,6 +36,7 @@ public class SommenActivity extends AppCompatActivity {
     private int antwoordenFout = 10;
 
     // Endless Mode
+    private boolean started = false;
     private boolean endless = false;
     private TextView scoreUI;
     private ConstraintLayout keyLayout;
@@ -103,6 +104,15 @@ public class SommenActivity extends AppCompatActivity {
             timer.cancel();
     }
 
+    // Functie die endless mode killt zodra je van app switcht
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(endless && started)
+            endEndless();
+        started = true;
+    }
+
     // De functie die wordt doorgevoerd zodra er iets is ingevult en de gebruiker drukt op volgende
     public void antwoord(int antwoordIngevult){
         // Kijk of het juist is beantwoord
@@ -155,7 +165,7 @@ public class SommenActivity extends AppCompatActivity {
                 if (score > ((gottenKeys + 1) * keyTreshold)){
                     gottenKeys++;
 
-                    Variables.upKeys(this);
+                    ResetKeys.upValue(this);
                     updateKeys();
                 }
 
@@ -220,13 +230,16 @@ public class SommenActivity extends AppCompatActivity {
 
     // Update de keys in de ui naar het daadwerkelijke getal
     private void updateKeys(){
-        keys.setText(Variables.getResetKey() + "");
+        keys.setText(ResetKeys.getValue() + "");
     }
 
     // Eindig endless mode
     private void endEndless(){
         this.finish();
-        timer.cancel();
+        if (timer != null)
+            timer.cancel();
+        if (score > HighscoreEndless.getValue())
+            HighscoreEndless.setValue(score, this);
         Intent scoreScherm = new Intent(SommenActivity.this, printResults.class);
         scoreScherm.putExtra("score", score);
         startActivity(scoreScherm);
@@ -314,8 +327,8 @@ public class SommenActivity extends AppCompatActivity {
         ButtonClick.setButtonClickFunctionTransp(keyButton, getResources(), new Function() {
             @Override
             public void whatToDo() {
-                if (Variables.getResetKey() > 0){
-                    Variables.downKeys(SommenActivity.this);
+                if (ResetKeys.getValue() > 0){
+                    ResetKeys.downValue(SommenActivity.this);
                     updateKeys();
                     resetTimer();
                 }

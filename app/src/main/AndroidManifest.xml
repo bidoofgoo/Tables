@@ -33,7 +33,8 @@
         <activity
             android:name=".oefenresultsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".SelectMode"></activity>
+        <activity android:name=".SelectMode" />
+        <activity android:name=".Statistiek"></activity>
     </application>
 
 </manifest>

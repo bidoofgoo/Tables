@@ -12,4 +12,7 @@
     <string name="by">Door:</string>
     <string name="terug">Terug</string>
     <string name="play">Spelen</string>
+    <string name="sleutels">Aantal sleutels:</string>
+    <string name="plays">Aantal keer gespeeld:</string>
+    <string name="highscore">Hoogste highscore:</string>
 </resources>

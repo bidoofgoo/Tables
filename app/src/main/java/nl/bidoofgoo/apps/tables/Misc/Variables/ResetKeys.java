@@ -1,35 +1,38 @@
-package nl.bidoofgoo.apps.tables.Misc;
+package nl.bidoofgoo.apps.tables.Misc.Variables;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Variables {
+public class ResetKeys{
 
     // aantal reset keys
     private static int resetKey = 0;
 
-    public static int getResetKey() {
+
+    public static int getValue() {
         return resetKey;
     }
 
-    public static void upKeys(Context context){
-        setResetKey(resetKey + 1, context);
+    // resetkey + 1
+    public static void upValue(Context context){
+        setValue(resetKey + 1, context);
     }
 
-    public static void downKeys(Context context){
-        setResetKey(resetKey - 1, context);
+    // resetkey -1
+    public static void downValue(Context context){
+        setValue(resetKey - 1, context);
     }
 
     // Deze functie laadt de value van resetkeys uit sharedpreferences en slaat deze op
-    public static void loadResetKeyFromPreferences(Context context){
+    public static void loadValueFromPreferences(Context context){
         SharedPreferences sp = context.getSharedPreferences("keys", Activity.MODE_PRIVATE);
         resetKey = sp.getInt("key", 0);
     }
 
     // Deze functie zet het aantal keys in de sharedpreferences
-    private static void saveResetKeys(Context context){
+    private static void saveValue(Context context){
         SharedPreferences sp = context.getSharedPreferences("keys", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putInt("key", resetKey);
@@ -37,12 +40,12 @@ public class Variables {
     }
 
     // Deze functie wijzigd de resetkey
-    private static void setResetKey(int resetKey, Context context) {
-        Variables.resetKey = resetKey;
-        if (Variables.resetKey < 0){
-            Variables.resetKey = 0;
+    private static void setValue(int resetKey, Context context) {
+        ResetKeys.resetKey = resetKey;
+        if (ResetKeys.resetKey < 0){
+            ResetKeys.resetKey = 0;
         }
-        saveResetKeys(context);
+        saveValue(context);
     }
 
 }
